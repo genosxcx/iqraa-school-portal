@@ -1,0 +1,84 @@
+<div class="dashboard-wrapper">
+  <nav class="top-nav">
+    <div class="nav-content">
+      <div class="brand">
+        <div class="logo-icon"></div>
+        <h1>مدرسة إقرأ الشاملة - اللقية 
+<span></span></h1>
+      </div>
+      
+     <div class="user-info">
+  <div class="role-badge" [ngClass]="dataService.userRole()">
+    <span class="dot"></span>
+    {{ dataService.userRole() | titlecase }} Account
+  </div>
+
+  @if (dataService.isPrincipal()) {
+    <button class="logout-link" (click)="dataService.clearSession()" routerLink="/login">
+      Sign Out
+    </button>
+  }
+</div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="tabs-header">
+      <div class="tabs-list">
+        @for (month of dataService.schedules(); track month.monthName; let i = $index) {
+          <button 
+            class="tab-btn" 
+            [class.active]="activeMonthIndex === i" 
+            (click)="setActiveMonth(i)">
+            {{ month.monthName }}
+          </button>
+        }
+      </div>
+      @if (dataService.isPrincipal()) {
+        <button class="add-month-btn" (click)="addNewMonth()">+ Add Month</button>
+      }
+    </div>
+
+    @if (dataService.schedules().length > 0 && activeMonth) {
+      <div class="tab-content">
+        <div class="content-header">
+          <div class="text-group">
+            <h2>{{ activeMonth.monthName }} Schedule</h2>
+          </div>
+
+          @if (dataService.isPrincipal()) {
+            <div class="admin-actions">
+              <button class="btn-action btn-add-row" (click)="onAddRow(activeMonthIndex)">+ Add Week</button>
+              
+              <button class="btn-action btn-sync" (click)="syncWithCloud()">Save to Cloud</button>
+              
+              <label class="btn-action btn-upload">
+                Upload Excel
+                <input type="file" (change)="onFileChange($event, activeMonthIndex)" hidden />
+              </label>
+              
+              <button class="btn-action btn-download" (click)="downloadExcel(activeMonthIndex)">Export</button>
+              <button class="btn-action btn-delete" (click)="dataService.removeMonth(activeMonthIndex)">Delete</button>
+            </div>
+          }
+        </div>
+
+        <div class="table-card">
+          @if (activeMonth.data.length > 0) {
+            <app-excel-table [monthIndex]="activeMonthIndex"></app-excel-table>
+          } @else {
+            <div class="empty-table-state">
+              <p>No data uploaded for {{ activeMonth.monthName }}.</p>
+            </div>
+          }
+        </div>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <div class="empty-icon">📅</div>
+        <h3>No Calendars Published</h3>
+        <p>@if(dataService.isPrincipal()){ Add a month to begin. } @else { Waiting for updates. }</p>
+      </div>
+    }
+  </main>
+</div>

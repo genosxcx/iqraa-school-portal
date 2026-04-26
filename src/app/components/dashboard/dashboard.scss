@@ -1,0 +1,217 @@
+// Variables
+$primary: #2563eb;
+$primary-hover: #1d4ed8;
+$bg-body: #f8fafc;
+$border-color: #e2e8f0;
+$text-main: #1e293b;
+$text-muted: #64748b;
+
+.dashboard-wrapper {
+  background-color: $bg-body;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+// Top Navigation
+.top-nav {
+  background: white;
+  border-bottom: 1px solid $border-color;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .nav-content {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  h1 { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: $text-main;
+    span { color: $primary; }
+  }
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  
+  &.principal { background: #dcfce7; color: #166534; .dot { background: #22c55e; } }
+  &.viewer { background: #e0f2fe; color: #075985; .dot { background: #0ea5e9; } }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+}
+
+// Action Bar
+.action-bar {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  h2 { font-size: 1.8rem; color: $text-main; margin: 0; }
+  p { color: $text-muted; margin: 4px 0 0; }
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-size: 0.9rem;
+
+  &-primary { background: $primary; color: white; &:hover { background: $primary-hover; } }
+  &-secondary { background: white; color: $text-main; border: 1px solid $border-color; &:hover { background: #f1f5f9; } }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// Table Styling
+.table-card {
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  max-height: 70vh;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  thead th {
+    position: sticky;
+    top: 0;
+    background: #f1f5f9;
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $text-muted;
+    border-bottom: 1px solid $border-color;
+  }
+
+  tbody td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    color: $text-main;
+    font-size: 0.95rem;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background-color: #f8fafc; }
+}
+
+// Editable Cells
+.cell-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  transition: all 0.2s;
+
+  &:hover { background: #f1f5f9; border-color: $border-color; }
+  &:focus {
+    background: white;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+  }
+}
+
+// Empty State
+.empty-state {
+  padding: 80px 0;
+  text-align: center;
+  .empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+  h3 { color: $text-main; margin-bottom: 8px; }
+  p { color: $text-muted; }
+}
+
+/* ... keep your previous dashboard styles ... */
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-sync {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  &:hover { background-color: #1d4ed8; }
+}
+
+.btn-upload {
+  background-color: white;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+  &:hover { background-color: #f8fafc; }
+}
+
+.btn-download {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  &:hover { background-color: #059669; }
+}
+
+.btn-delete {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  &:hover { background-color: #fecaca; }
+}
+
+/* Ensure the table card looks consistent */
+.table-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+.btn-add-row {
+  background-color: #f5f3ff;
+  color: #5e35b1;
+  border: 1px solid #ddd6fe;
+  &:hover {
+    background-color: #ede9fe;
+  }
+}

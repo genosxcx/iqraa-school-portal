@@ -1,0 +1,41 @@
+<div class="table-container">
+  @if (currentMonthData.length > 0) {
+    <div class="table-scroll">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            @for (header of headers; track header) {
+              <th>{{ header }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of currentMonthData; track row; let i = $index) {
+            <tr>
+              @for (header of headers; track header) {
+                <td>
+                  @if (dataService.isPrincipal()) {
+                    <div class="input-wrapper">
+                      <textarea 
+                        [(ngModel)]="row[header]" 
+                        (ngModelChange)="onCellChange(i, header, $event)"
+                        class="edit-area"
+                        rows="1">
+                      </textarea>
+                    </div>
+                  } @else {
+                    <span class="view-text">{{ row[header] }}</span>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="no-data-placeholder">
+      <p>No schedule entries found for this month.</p>
+    </div>
+  }
+</div>

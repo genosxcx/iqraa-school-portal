@@ -1,0 +1,32 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="brand-section">
+      <div class="logo-circle">S</div>
+      <h2>iqraa school</h2>
+      <p>Portal Access</p>
+    </div>
+    
+    <div class="input-group">
+      <label>Username</label>
+      <input 
+        type="text" 
+        [(ngModel)]="username" 
+        placeholder="Enter username" 
+        autocomplete="off" />
+    </div>
+
+    <div class="input-group">
+      <label>Password</label>
+      <input 
+        type="password" 
+        [(ngModel)]="password" 
+        placeholder="••••••••" />
+    </div>
+
+    <button (click)="onLogin()" class="login-btn">Sign In</button>
+    
+    <div class="login-footer">
+      <p>Authorized access only</p>
+    </div>
+  </div>
+</div>
