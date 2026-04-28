@@ -1,0 +1,57 @@
+<div class="schedule-container">
+  <div class="navigation-bar">
+    <a routerLink="/" class="back-link">← חזרה לפורטל</a>
+  </div>
+
+  <div class="header-actions">
+    <div class="title-group">
+      <h2>מרכז מערכת שעות</h2>
+      <p>הנתונים נשמרים אוטומטית בענן</p>
+    </div>
+    
+    <div class="controls">
+      <input type="file" (change)="onFileUpload($event)" multiple accept=".xlsx, .xls" id="file-upload" class="hidden">
+      <label for="file-upload" class="btn-upload">העלה קבצי Excel</label>
+    <button class="btn-delete-all" (click)="deleteAllSchedules()">מחק הכל</button>
+      <input type="text" placeholder="חפש לפי תאריך..." [ngModel]="searchDate()" (ngModelChange)="searchDate.set($event)" class="search-input">
+    </div>
+  </div>
+
+  <div class="grouped-list">
+    @for (group of groupedSchedule(); track group.dateStr) {
+      <div class="date-section">
+        <div class="date-divider">
+          <span class="date-label" [class.is-today]="isToday(group.date)">
+            {{ group.dateStr }}
+            @if (isToday(group.date)) { <small>(היום)</small> }
+          </span>
+          <div class="line"></div>
+        </div>
+
+        <div class="entries-stack">
+          @for (entry of group.entries; track $index) {
+            <div class="session-strip" [class.today-strip]="isToday(entry.date)">
+              <div class="time-box">
+                <span class="t-start">{{ entry.startTime }}</span>
+                <span class="t-end">{{ entry.endTime }}</span>
+              </div>
+              <div class="details">
+                <h4 class="session-title">{{ entry.subject }}</h4>
+                <span class="file-info">מקור: {{ entry.fileName }}</span>
+              </div>
+              
+              <div class="actions">
+                <button class="btn-delete" (click)="deleteEntry(entry.id)" title="מחק אימון">✖</button>
+              </div>
+
+            </div>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>לא נמצאו אימונים קרובים. העלה קבצים כדי להתחיל.</p>
+      </div>
+    }
+  </div>
+</div>
